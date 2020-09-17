@@ -1,0 +1,27 @@
+---
+# Manager
+portainer_mgr_image: portainer/portainer:1.24.1
+portainer_mgr_ports: 
+  - "9000:9000"
+portainer_mgr_networks:
+  - portainer
+  - web
+portainer_mgr_labels:
+  - "traefik.port=9000"
+  - "traefik.frontend.rule=Host:portainer.local"
+  - "traefik.docker.network=web"
+portainer_mgr_volume: portainer_data
+# Agent
+portainer_agent_image: portainer/agent:1.6.0
+portainer_agent_port: 9001
+portainer_agent_networks:
+  - portainer
+# Stack configuration
+stack_networks:
+  portainer:
+    driver: overlay
+    attachable: true
+  web:
+    driver: overlay
+    external: true
+ 

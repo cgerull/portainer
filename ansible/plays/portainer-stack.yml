@@ -1,0 +1,9 @@
+---
+- hosts: "{{ env }}:&managers"
+  become: false
+  gather_facts: false
+  tasks:
+    - name: "Install portainer stack configuration"
+      template:
+        src: "../templates/portainer-compose.yml.j2"
+        dest: "{{ code_path }}/portainer-stack-{{ env }}.yml"
